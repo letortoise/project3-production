@@ -1,0 +1,129 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block include %}
+    <link rel="stylesheet" href="{% static 'orders/menu.css' %}"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+
+    {% verbatim %}
+    <script id="options-template" type="text/x-handlebars-template">
+        {{#each extras}}
+            <input type="checkbox" name="extra" data-name="{{ this.name }}" data-has-cost="{{ this.has_cost}}" data-cost="{{ this.cost }}">
+                {{ this.name }}
+                {{#if this.has_cost }}
+                    (+{{ this.cost }})
+                {{/if}}
+            </input>
+        {{/each}}
+    </script>
+    {% endverbatim %}
+    <script src="{% static 'orders/menu.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="optionsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div id="modalBody" class="modal-body">
+              <div id="size" class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <label class="btn btn-outline-secondary">
+                      <input id="small" type="radio" name="size" data-value="small" autocomplete="off"> Small
+                  </label>
+                  <label class="btn btn-outline-secondary">
+                      <input id="large" type="radio" name="size" data-value="large" autocomplete="off"> Large
+                  </label>
+              </div>
+              <div id="extras">
+              </div>
+          </div>
+
+          <div class="modal-footer">
+              <button id="submit" type="button" class="btn btn-primary">Add To Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div id="vp" class="container">
+        <div class="row flex-nowrap justify-content-between align-items-center fixed-top shadow" id="heading">
+            <div class="col-4">
+            </div>
+            <div class="col-4 text-center">
+                <p id="title">
+                    Menu
+                </p>
+            </div>
+            <div id="nav" class="col-4 d-flex justify-content-end align-items-center">
+                <a class="mr-3" href="{% url 'cart' %}">
+                    My Cart
+                </a>
+                <a class="mr-3" href="{% url 'logout' %}">
+                    Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Menu -->
+        <div id="menu" class="row list-group">
+
+            <div class="mb-2">
+                {% for section in menu %}
+                    <div class="section">
+                        <h5 class="section-label">{{ section.0 }}</h5>
+
+                        {% for item in section.1 %}
+                            <a
+                            class="list-group-item d-flex justify-content-between align-items-center menu-item"
+                            data-name="{{ item.name }}"
+                            data-pk="{{ item.pk }}"
+                            data-takes-extras="{{ item.takesExtras }}"
+                            data-extras="{{ item.extras_formatted }}"
+                            data-is-one-size="{{ item.isOneSize }}"
+                            data-number-toppings="{{ item.numberToppings }}"
+                            data-price="{{ item.price_formatted }}"
+                            >
+                                <span>{{ item }}</span> 
+
+                                {% if item.isOneSize %}
+                                    <span class="ml-auto mr-1">
+                                        ${{ item.singleSizeCost }}
+                                    </span>
+                                {% else %}
+                                    <span class="ml-auto mr-1">
+                                        Small: ${{ item.smallCost }}
+                                        Large: ${{ item.largeCost }}
+                                    </span>
+                                {% endif %}
+
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+
+{% endblock %}

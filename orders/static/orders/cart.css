@@ -1,0 +1,29 @@
+#title {
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+}
+
+#cart-empty {
+    width: 100%;
+    text-align: center;
+    
+
+}
+
+.extras {
+    margin-bottom: 0px;
+}
+
+#total {
+    display: none;
+    text-align: right;
+    font-size: 1rem;
+    padding-top: 1rem;
+    margin-right: 35px;
+}
+
+#submit {
+    display: none;
+    margin-left: auto;
+    margin-right: 15px;
+}

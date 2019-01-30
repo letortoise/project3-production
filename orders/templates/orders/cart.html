@@ -1,0 +1,69 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block title %}
+    Your Cart
+{% endblock %}
+
+{% block include %}
+    <link rel="stylesheet" href="{% static 'orders/cart.css' %}"/>
+    <script src="https://cdn.jsdelivr.net/npm/decimal.js-light@2.5.0/decimal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+
+    {% verbatim %}
+    <!-- <script id="cart-item" type="text/template">
+        <div class="cart-item">
+            <div class="list-group-item">
+                {{ item }}
+                {{#if extras}}
+                    with
+                    {{#each extras}}
+                    {{ extras }}
+                    {{/}}
+                {{/if}}
+            </div>
+        </div>
+    </script> -->
+
+    <script id="cart-template" type="text/template">
+        {{#if cart}}
+        <div class="list-group">
+            {{#each cart}}
+                <div class="list-group-item d-flex align-items-center">
+                    <div class="d-block">
+                        {{ this.name }}
+                        {{#if this.extras}}
+                            with
+                            <ul class="extras">
+                            {{#each this.extras}}
+                                <li>{{extra this}}</li>
+                            {{/each}}
+                            </ul>
+                        {{/if}}
+                    </div>
+                    <div class="ml-auto">
+                        ${{ this.price }}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        {{else}}
+            <div id="cart-empty">
+                Your cart is empty.
+            </div>
+        {{/if}}
+    </script>
+    {% endverbatim %}
+
+    <script src="{% static 'orders/cart.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class = "container">
+        <h1 id="title" class="text-center">Your Cart</h1>
+        <div id="items" class="col-lg"></div>
+        <p id="total">Total: </p>
+        <button id="submit" class="btn btn-primary">Submit Order</button>
+    </div>
+{% endblock %}

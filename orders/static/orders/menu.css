@@ -1,0 +1,111 @@
+@keyframes hide {
+    0% {
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+        line-height: 100%;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+        line-height: 0px;
+        padding: 0px;
+        margin-bottom: 0px;
+    }
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+/* Header */
+
+#heading {
+    background-color: #ff471a;
+    color: white;
+}
+
+#title {
+    font-size: 3rem;
+    margin-bottom: 0px;
+}
+
+#nav {
+
+}
+
+#nav > a {
+    color: white;
+
+}
+
+#nav > a:hover {
+    color: #D3D3D3;
+    text-decoration: none;
+}
+
+
+/* Main */
+
+#menu {
+    padding-top: 6rem;
+
+}
+
+.section {
+    margin-bottom: 30px;
+
+}
+
+.section-label {
+    margin-top: 1rem;
+}
+
+.menu-item {
+    background-color: #f2f2f2;
+}
+
+.menu-item:hover {
+    background-color: #D3D3D3;
+}
+
+.accordion-panel {
+    display: none;
+    background-color: white;
+    border-left: 1px solid rgba(0, 0, 0, .125);
+    border-right: 1px solid rgba(0, 0, 0, .125);
+    padding: .75rem 1.25rem;
+}
+
+#size {
+    width: 100%;
+    display: none;
+}
+
+#size > .btn-outline-secondary.focus {
+    box-shadow: none;
+}
+
+#size > .btn-outline-secondary:hover {
+
+}
+
+#extras {
+    margin-top: 1rem;
+    display: none;
+
+}
+
+.price {
+    display: inline;
+    font-size: .75rem;
+
+}

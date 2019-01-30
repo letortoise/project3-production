@@ -1,0 +1,2 @@
+-Add animation when something is added to cart
+-make prices text for two-sized items on menu left-justified
