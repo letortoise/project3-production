@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.core import serializers
 from .models import MenuItem, Pizza, Order, OrderItem, Extra
 import json
@@ -97,6 +98,9 @@ def lookupExtras(request):
 
 
 def login_view(request):
+    if request.method == "GET":
+        return HttpResponseRedirect(reverse("index"))
+
     username = request.POST["username"]
     password = request.POST["password"]
     user = authenticate(request, username=username, password=password)
@@ -115,7 +119,27 @@ def register_view(request):
         try:
             username = request.POST["username"]
             password = request.POST["password"]
+
+            # Make sure username is valid
+            if not username:
+                print("must include a username")
+            if not password:
+                print("must include a password")
+
+            # Check if username already exists
+            if User.objects.get(username=username):
+                return render(
+                    request,
+                    "orders/register.html",
+                    {"message": "Username already taken"}
+                )
+
+            return render(request, "orders/register.html", {"message": "Smth wehnt rong"})
         except KeyError:
+            return HttpResponseRedirect(reverse("index"))
+        except User.DoesNotExist:
+            # Create the user
+            User.objects.create_user(username, password=password)
             return HttpResponseRedirect(reverse("index"))
 
 def logout_view(request):

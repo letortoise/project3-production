@@ -9,7 +9,7 @@
     <div class="container col-md-6">
         <h1 class="mb-3 mt-3">Register</h1>
 
-        <form class="mb-4" action="{% url 'login' %}" method="post">
+        <form class="mb-4" action="{% url 'register' %}" method="post">
             {% csrf_token %}
             <div class="form-group">
               <label for="exampleInputEmail1">Username</label>
@@ -23,6 +23,12 @@
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        {% if message %}
+            <small>
+                {{message}}
+            </small>
+        {% endif %}
     </div>
 
 {% endblock %}
