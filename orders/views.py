@@ -122,9 +122,9 @@ def register_view(request):
 
             # Make sure username is valid
             if not username:
-                print("must include a username")
+                return render(request, "orders/register.html", {"message": "Must include a username"})
             if not password:
-                print("must include a password")
+                return render(request, "orders/register.html", {"message": "Must include a password"})
 
             # Check if username already exists
             if User.objects.get(username=username):
